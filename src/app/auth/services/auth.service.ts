@@ -23,9 +23,7 @@ export class AuthService {
     return localStorage.getItem('token') || '';
   }
 
-  getConnectUser(): any {
-    return this.http.get(`${this.apiUrl}/auth/me`);
-  }
+
 
 
 

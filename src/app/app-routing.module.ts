@@ -13,10 +13,14 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'auth/callback',
+    loadChildren: () => import('./auth-callback/auth-callback.module').then(m => m.AuthCallbackModule),
+  },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   {
     path: '**',
-    redirectTo: '/auth',
+    redirectTo: '/auth/login',
   }
 ];
 

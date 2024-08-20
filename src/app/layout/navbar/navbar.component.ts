@@ -8,37 +8,17 @@ import { AuthService } from '../../auth/services/auth.service'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  email: string = '';
-  isConnected: boolean = false;
+  isAuth: boolean = false;
   constructor(
     private router: Router,
     public authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.isConnected = this.authService.checkUserIsConnected();
-    if (this.isConnected)
-    this.getConnectedUser();
-  }
-
-  getConnectedUser() {
-    this.authService.getConnectUser().subscribe((user: {
-      email: string;
-      _id: string;
-    }) => {
-     this.email = user.email;
-    }, (error:Error) => {
-      console.log(error);
-    })
-  }
-
-  navigateToLogin() {
-    console.log('navigateToLogin');
-    this.router.navigateByUrl('auth/login');
+    this.isAuth = this.authService.checkUserIsConnected();
   }
 
   logout() {
-    this.isConnected = false;
     this.authService.logout();
     this.router.navigateByUrl('auth/login');
   }
