@@ -1,13 +1,17 @@
 // file-upload.service.ts
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import * as XLSX from 'xlsx';
-
+import {environment} from '../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
-
-  constructor() { }
+  apiUrl = environment.apiUrl;
+  constructor(
+    private http: HttpClient
+  ) { }
 
   // Read the Excel file and extract data
   readExcelFile(file: File): Promise<any[]> {
@@ -25,4 +29,10 @@ export class FileUploadService {
       reader.readAsArrayBuffer(file);
     });
   }
+
+  insertData(data: any[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/kraken`, data)
+  }
+
+
 }

@@ -7,26 +7,31 @@ import { FileUploadService } from './services/file-upload.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  data: any[] = [];
   constructor(
  private fileUploadService: FileUploadService
   ) { }
 
-  ngOnInit(): void {
-  }
+
+  ngOnInit() {
+
+    }
+
 
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.fileUploadService.readExcelFile(file).then((data: any[]) => {
-        this.uploadData(data);
+        console.log(data);
+        this.data = data;
       });
     }
   }
 
-  uploadData(data: any[]) {
-    console.log('Data to be uploaded:', data);
-    /*this.http.post('http://localhost:3000/upload', data).subscribe(response => {
-      console.log('Data uploaded successfully!', response);
-    });*/
+  upload() {
+    this.fileUploadService.insertData(this.data).subscribe((response) => {
+    }, (error) => {
+      console.error('Error:', error);
+    });
   }
 }

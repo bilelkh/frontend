@@ -1,1 +1,12 @@
-<input type="file" (change)="onFileChange($event)" />
+<div class="row">
+  <div class="col-md-12 mx-auto">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload excel file</label>
+      <input class="form-control"  type="file" (change)="onFileChange($event)" id="formFile" accept=".xlsx, .xls,.csv">
+    </div>
+
+  </div>
+  <div class="col-md-12 mx-auto">
+    <button type="button" class="btn btn-primary mx-auto" (click)="upload()" [disabled]="!data.length">Upload!</button>
+  </div>
+</div>
